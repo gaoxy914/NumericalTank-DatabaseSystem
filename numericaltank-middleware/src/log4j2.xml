@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Infosuration status="error">
+	<appenders>
+		<!--这个会打印出所有的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档-->
+        <RollingFile name="RollingFile1" fileName="logs/middleware.log"
+                     filePattern="middlewarelog/$${date:yyyy-MM}/middleware-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n"/>
+            <SizeBasedTriggeringPolicy size="50MB"/>
+        </RollingFile>
+        <RollingFile name="RollingFile2" fileName="logs/cmd.log"
+                     filePattern="cmdlog/$${date:yyyy-MM}/cmd-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n"/>
+            <SizeBasedTriggeringPolicy size="50MB"/>
+        </RollingFile>
+	</appenders>
+	<loggers>
+		<logger name="middleware" additivity="FALSE" level="ALL">
+			<AppenderRef ref="RollingFile1" level="ALL"/>
+		</logger>
+		<logger name="cmd" additivity="FALSE" level="ALL">
+			<AppenderRef ref="RollingFile2" level="ALL"/>
+		</logger>
+	</loggers>
+</Infosuration>

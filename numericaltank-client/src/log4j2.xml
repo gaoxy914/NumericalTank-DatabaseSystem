@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Infosuration status="error">
+	<appenders>
+		<!--这个会打印出所有的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档-->
+        <RollingFile name="RollingFile" fileName="logs/client.log"
+                     filePattern="log/$${date:yyyy-MM}/client-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n"/>
+            <SizeBasedTriggeringPolicy size="50MB"/>
+        </RollingFile>
+	</appenders>
+	<loggers>
+		<root level="trace">
+			<appender-ref ref="RollingFile"/>
+		</root>
+	</loggers>
+</Infosuration>
